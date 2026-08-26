@@ -101,6 +101,16 @@ The Excel analytical layer processes the exported structured table **`ONGC_Maste
 * **Values:** `AVERAGE of daily_return_pct`, `AVERAGE of intraday_volatility_pct`, `COUNT of trade_date`[cite: 1]
 * **Analytical Insight:** Tracks performance across **14 overbought breakout sessions**, where daily returns averaged **1.12%** compared to **-0.04%** during normal trading bands.
 
+### 3. Pivot Table 3: Monthly Trend & Macro Benchmark Analysis
+Summarizes monthly ONGC stock performance against Brent Crude closing benchmarks over the trading timeframe.
+
+* **Pivot Setup:**
+  * **Rows:** `trade_date` (Grouped by **Months**)
+  * **Values:**
+    * `AVERAGE of close_price` (Format: `₹#,##0.00`)
+    * `AVERAGE of crude_price` (Format: `$#,##0.00`)
+    * `SUM of ongc_volume` (Format: `#,##0`)
+    * `COUNT of trade_date` (Name: *"Trading Days"*)
 ---
 
 ## 📂 Repository Structure
