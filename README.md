@@ -120,7 +120,7 @@ The Power BI dashboard (`Ongc_stock_dashboard.pbix`) provides an executive visua
 ### Single-Page Visual Grid Blueprint
 
 <img width="1320" height="688" alt="image" src="https://github.com/user-attachments/assets/7194ac86-fbbb-4538-9fbb-800a1dc7447c" />
-## 📐 Production DAX Measure Library
+ **📐 Production DAX Measure Library**
 
 The following DAX script handles text-formatted nulls and summary row strings gracefully inside **DAX Query View**:
 
