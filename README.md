@@ -113,6 +113,31 @@ Summarizes monthly ONGC stock performance against Brent Crude closing benchmarks
     * `COUNT of trade_date` (Name: *"Trading Days"*)
 ---
 
+
+
+## 📊 Power BI Interactive Financial Dashboard
+
+The Power BI dashboard (`Ongc_stock_dashboard.pbix`) provides an interactive executive interface for visual exploration across sensitivity and technical dimensions.
+
+### Single-Page Visual Grid Blueprint
+
++---------------------------------------------------------------------------------------------------+
+| HEADER TITLE: ONGC Stock & Brent Crude Quantitative Analytics Dashboard                           |
+| TOP SLICERS: [ Date Range Slider ]   |   [ Event Severity Dropdown ]   |   [ Signal Status ]      |
++---------------------------------------------------------------------------------------------------+
+| ROW 1: EXECUTIVE KPI CARDS                                                                        |
+| [ Latest ONGC Close ]  |  [ Avg 30D Beta ]  |  [ Avg 30D Correlation ]  |  [ Geopolitical Vol % ]    |
++-------------------------------------------------------------------------------+-------------------+
+| ROW 2: MACRO & TECHNICAL DYNAMICS                                             | RIGHT PANEL       |
+| Visual 1 (Combo Chart): ONGC Close Price vs Brent Crude Price over Time       | Visual 3 (Bar):   |
+| Visual 2 (Line Chart): Bollinger Bands (Close, SMA-20, Upper/Lower Bands)     | Geopolitical Vol %|
+|                                                                               | by Event Severity |
++-------------------------------------------------------------------------------+-------------------+
+| ROW 3: DETAILED LOG & SIGNAL DISTRIBUTION                                                         |
+| Visual 4 (Table Log): Date, Event Name, Severity, Daily Return %, Volatility %                    |
+| Visual 5 (Donut Chart): Trading Days Count Distribution by Signal Status                          |
++---------------------------------------------------------------------------------------------------+
+
 ## 📂 Repository Structure
 
 ```text
