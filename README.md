@@ -119,6 +119,7 @@ The Power BI dashboard (`Ongc_stock_dashboard.pbix`) provides an executive visua
 
 ### Single-Page Visual Grid Blueprint
 
+<img width="1320" height="688" alt="image" src="https://github.com/user-attachments/assets/7194ac86-fbbb-4538-9fbb-800a1dc7447c" />
 ```text
 +---------------------------------------------------------------------------------------------------+
 | HEADER TITLE: ONGC Stock & Brent Crude Quantitative Analytics Dashboard                           |
