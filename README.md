@@ -120,20 +120,62 @@ The Power BI dashboard (`Ongc_stock_dashboard.pbix`) provides an executive visua
 ### Single-Page Visual Grid Blueprint
 
 <img width="1320" height="688" alt="image" src="https://github.com/user-attachments/assets/7194ac86-fbbb-4538-9fbb-800a1dc7447c" />
-```text
-+---------------------------------------------------------------------------------------------------+
-| HEADER TITLE: ONGC Stock & Brent Crude Quantitative Analytics Dashboard                           |
-| TOP SLICERS: [ Date Range Slider ]   |   [ Event Severity Dropdown ]   |   [ Signal Status ]      |
-+---------------------------------------------------------------------------------------------------+
-| ROW 1: EXECUTIVE KPI CARDS                                                                        |
-| [ Latest ONGC Close ]  |  [ Avg 30D Beta ]  |  [ Avg 30D Correlation ]  |  [ Geopolitical Vol % ]    |
-+-------------------------------------------------------------------------------+-------------------+
-| ROW 2: MACRO & TECHNICAL DYNAMICS                                             | RIGHT PANEL       |
-| Visual 1 (Combo Chart): ONGC Close Price vs Brent Crude Price over Time       | Visual 3 (Bar):   |
-| Visual 2 (Line Chart): Bollinger Bands (Close, SMA-20, Upper/Lower Bands)     | Geopolitical Vol %|
-|                                                                               | by Event Severity |
-+-------------------------------------------------------------------------------+-------------------+
-| ROW 3: DETAILED LOG & SIGNAL DISTRIBUTION                                                         |
-| Visual 4 (Table Log): Date, Event Name, Severity, Daily Return %, Volatility %                    |
-| Visual 5 (Donut Chart): Trading Days Count Distribution by Signal Status                          |
-+---------------------------------------------------------------------------------------------------+
+## 📐 Production DAX Measure Library
+
+The following DAX script handles text-formatted nulls and summary row strings gracefully inside **DAX Query View**:
+
+```dax
+DEFINE
+    -- Section 1: Executive KPI Measures
+    MEASURE 'Final sql output'[Latest ONGC Close] = 
+        CALCULATE(
+            MAX('Final sql output'[close_price]),
+            LASTDATE('Final sql output'[trade_date])
+        )
+
+    -- Section 2: Macro Sensitivity Measures
+    MEASURE 'Final sql output'[Avg 30D Beta] = 
+        AVERAGEX(
+            FILTER(
+                'Final sql output',
+                NOT ISBLANK('Final sql output'[rolling_30d_beta]) &&
+                'Final sql output'[rolling_30d_beta] <> "NULL" &&
+                ISNUMBER(VALUE('Final sql output'[rolling_30d_beta]))
+            ),
+            VALUE('Final sql output'[rolling_30d_beta])
+        )
+
+    MEASURE 'Final sql output'[Avg 30D Correlation] = 
+        AVERAGEX(
+            FILTER(
+                'Final sql output',
+                NOT ISBLANK('Final sql output'[rolling_30d_correlation]) &&
+                'Final sql output'[rolling_30d_correlation] <> "NULL" &&
+                ISNUMBER(VALUE('Final sql output'[rolling_30d_correlation]))
+            ),
+            VALUE('Final sql output'[rolling_30d_correlation])
+        )
+
+    -- Section 3: Geopolitical Risk Analysis
+    MEASURE 'Final sql output'[Avg Geopolitical Volatility %] = 
+        CALCULATE(
+            AVERAGEX(
+                FILTER(
+                    'Final sql output',
+                    NOT ISBLANK('Final sql output'[intraday_volatility_pct]) &&
+                    'Final sql output'[intraday_volatility_pct] <> "NULL" &&
+                    ISNUMBER(VALUE('Final sql output'[intraday_volatility_pct]))
+                ),
+                VALUE('Final sql output'[intraday_volatility_pct])
+            ),
+            NOT ISBLANK('Final sql output'[event_severity]),
+            'Final sql output'[event_severity] <> "Regular Trading"
+        )
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Latest ONGC Close", [Latest ONGC Close],
+        "Avg 30D Beta", [Avg 30D Beta],
+        "Avg 30D Correlation", [Avg 30D Correlation],
+        "Avg Geopolitical Volatility %", [Avg Geopolitical Volatility %]
+    )
